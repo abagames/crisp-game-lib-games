@@ -256,17 +256,25 @@ function update() {
 
   function checkErasingDown() {
     let ec = 0;
-    for (let x = 0; x < gridSize - 1; x++) {
-      for (let y = 0; y < gridSize - 1; y++) {
+    for (let x = 0; x < gridSize; x++) {
+      for (let y = 0; y < gridSize; y++) {
         if (!erasingGrid[x][y]) {
           continue;
         }
         const c = grid[x][y];
-        if (!erasingGrid[x + 1][y] && grid[x + 1][y] === c) {
+        if (
+          x < gridSize - 1 &&
+          !erasingGrid[x + 1][y] &&
+          grid[x + 1][y] === c
+        ) {
           erasingGrid[x + 1][y] = true;
           ec++;
         }
-        if (!erasingGrid[x][y + 1] && grid[x][y + 1] === c) {
+        if (
+          y < gridSize - 1 &&
+          !erasingGrid[x][y + 1] &&
+          grid[x][y + 1] === c
+        ) {
           erasingGrid[x][y + 1] = true;
           ec++;
         }
@@ -277,17 +285,17 @@ function update() {
 
   function checkErasingUp() {
     let ec = 0;
-    for (let x = gridSize - 1; x > 0; x--) {
-      for (let y = gridSize - 1; y > 0; y--) {
+    for (let x = gridSize - 1; x >= 0; x--) {
+      for (let y = gridSize - 1; y >= 0; y--) {
         if (!erasingGrid[x][y]) {
           continue;
         }
         const c = grid[x][y];
-        if (!erasingGrid[x - 1][y] && grid[x - 1][y] === c) {
+        if (x > 0 && !erasingGrid[x - 1][y] && grid[x - 1][y] === c) {
           erasingGrid[x - 1][y] = true;
           ec++;
         }
-        if (!erasingGrid[x][y - 1] && grid[x][y - 1] === c) {
+        if (y > 0 && !erasingGrid[x][y - 1] && grid[x][y - 1] === c) {
           erasingGrid[x][y - 1] = true;
           ec++;
         }
