@@ -84,8 +84,15 @@ function update() {
       chicks.shift();
       fallingChicks.push({ pos: vec(bird.posHistory[2]), vy: 0 });
     }
+    const pp = vec(bird.pos);
     bird.vy += (input.isPressed ? 0.05 : 0.2) * difficulty;
     bird.pos.y += bird.vy;
+    const op = vec(bird.pos).sub(pp).div(9);
+    color("white");
+    times(9, () => {
+      pp.add(op);
+      box(pp, 6);
+    });
   } else {
     if (input.isJustPressed) {
       play("jump");
@@ -93,6 +100,7 @@ function update() {
       bird.isJumping = true;
     }
   }
+  color("black");
   char(bird.vy < 0 ? "b" : "a", bird.pos);
   nextFloorDist -= scr;
   if (nextFloorDist < 0) {
@@ -107,8 +115,8 @@ function update() {
   remove(floors, (f) => {
     f.pos.x -= scr;
     color("light_yellow");
-    const c = box(f.pos, f.width, 4).isColliding;
-    if (bird.vy > 0 && (c.char.a || c.char.b)) {
+    const c = box(f.pos, f.width, 4).isColliding.rect;
+    if (bird.vy > 0 && c.white) {
       bird.pos.y = f.pos.y - 5;
       bird.isJumping = false;
       bird.vy = 0;
