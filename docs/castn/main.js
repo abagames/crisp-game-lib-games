@@ -176,7 +176,7 @@ function update() {
         if (f.pos.x < startPos.x + 9) {
           addScore(
             f.type === 0 ? -1 : multiplier,
-            startPos.x + clamp(multiplier * 6, 0, 90),
+            startPos.x + clamp(multiplier * 6, 0, 140),
             startPos.y + (f.type === 0 ? 9 : 0)
           );
           multiplier++;
