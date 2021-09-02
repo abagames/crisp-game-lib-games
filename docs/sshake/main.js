@@ -98,13 +98,6 @@ function update() {
     e.pos.add(e.vel);
     e.ticks -= e.vel.x;
     color("transparent");
-    if (!e.isOnGround) {
-      e.vel.y += 0.03 * difficulty;
-      if (box(e.pos, 6).isColliding.rect.black) {
-        e.isOnGround = true;
-        e.vel.y = 0;
-      }
-    }
     if (e.isOnGround) {
       if (input.isJustPressed) {
         let vy = 0;
@@ -130,6 +123,23 @@ function update() {
           e.pos.y++;
           if (box(e.pos, 6).isColliding.rect.black) {
             e.pos.y--;
+            break;
+          }
+        }
+      }
+    } else {
+      e.vel.y += 0.03 * difficulty;
+      if (box(e.pos, 6).isColliding.rect.black) {
+        e.isOnGround = true;
+        e.vel.y = 0;
+      } else if (e.vel.y > 0) {
+        let ey = e.pos.y;
+        for (let i = 0; i < 9; i++) {
+          ey -= 3;
+          if (box(e.pos.x, ey, 6).isColliding.rect.black) {
+            e.pos.y = ey - 5;
+            e.isOnGround = true;
+            e.vel.y = 0;
             break;
           }
         }
