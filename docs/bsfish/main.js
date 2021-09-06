@@ -76,7 +76,13 @@ function update() {
       nextBigFishCount = rnd(3, 9);
     }
     if (type === "big") {
-      vel.y *= rnd() < 0.6 ? 1.125 : 0.97;
+      if (rnd() < 0.7) {
+        vel.y *= 1.125;
+        vel.x *= 0.9;
+      } else {
+        vel.y *= 0.97;
+        vel.x *= 1.5;
+      }
     }
     // @ts-ignore
     fishes.push({ pos, vel, type });
@@ -129,8 +135,8 @@ function update() {
       }
       color(f.type === "eye" ? "blue" : "black");
     }
-    const c = char("a", f.pos, { scale: { x: sc, y: sc } }).isColliding.char;
-    if (f.type !== "big" && (c.b || c.c)) {
+    char("a", f.pos, { scale: { x: sc, y: sc } });
+    if (f.type !== "big" && f.pos.distanceTo(bird.pos) < 6) {
       addScore(multiplier, f.pos);
       if (f.type === "normal") {
         play("coin");
