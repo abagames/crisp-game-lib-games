@@ -111,6 +111,7 @@ function update() {
       }
     }
   });
+  let isHit = false;
   remove(laserBoxes, (b) => {
     b.pos.y += b.vy;
     color(b.color);
@@ -130,12 +131,15 @@ function update() {
         ship.invincible = 30;
       }
     }
-    if (ship.invincible < 3 && c.black) {
-      play("lucky");
-      end();
+    if (c.black) {
+      isHit = true;
     }
     return b.pos.y < -b.size.y / 2 || b.pos.y > 99 + b.size.y / 2;
   });
+  if (ship.energy < 3 && isHit) {
+    play("lucky");
+    end();
+  }
   color("light_cyan");
   arc(ship.pos, 15, 2);
   color("cyan");
