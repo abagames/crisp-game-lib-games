@@ -120,7 +120,7 @@ function update() {
       addScore(multiplier);
       color("black");
       particle(ship.pos, 1);
-      ship.energy += sqrt(difficulty) * 0.1;
+      ship.energy += 0.1;
       if (ship.energy > 15) {
         play("explosion");
         play("powerUp");
