@@ -46,7 +46,7 @@ function update() {
       play("laser");
       multiplier = 1;
       shotY = sy;
-      laneY += 2 * penalty * sqrt(difficulty);
+      laneY += 2 * penalty * sqrt(sqrt(difficulty));
     }
   }
   color(hitColor == null ? "black" : hitColor);
