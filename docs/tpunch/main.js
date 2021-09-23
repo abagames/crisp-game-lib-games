@@ -69,13 +69,13 @@ function update() {
   color("black");
   char("c", 49, 49);
   if (input.isJustPressed) {
-    multiplier = 1;
     if (arm.length < 5) {
       play("select");
       arm.isAttacking = true;
     } else {
       play("laser");
     }
+    multiplier = 1;
   }
   if (!input.isPressed || arm.length > 30) {
     arm.isAttacking = false;
