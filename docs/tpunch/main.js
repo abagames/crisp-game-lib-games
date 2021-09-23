@@ -142,7 +142,7 @@ function update() {
   color("black");
   remove(enemies, (e) => {
     if (e.pos.distanceTo(50, 50) > 30) {
-      e.vel.addWithAngle(e.pos.angleTo(50, 50), 0.005);
+      e.vel.addWithAngle(e.pos.angleTo(50, 50), sd * 0.005);
       e.vel.mul(0.99);
     }
     e.pos.add(e.vel);
