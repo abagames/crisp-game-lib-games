@@ -171,7 +171,7 @@ function update() {
     let canPlacing = canPlaceGrid(p);
     blockPatterns[type].forEach((ba) => {
       addAngle(p, wrap(angle + ba, 0, 4));
-      canPlacing &&= canPlaceGrid(p);
+      canPlacing = canPlacing && canPlaceGrid(p);
     });
     return canPlacing;
   }
@@ -182,7 +182,7 @@ function update() {
     let canPlacing = p.isInRect(0, 0, gridSize, gridSize);
     blockPatterns[type].forEach((ba) => {
       addAngle(p, wrap(angle + ba, 0, 4));
-      canPlacing &&= p.isInRect(0, 0, gridSize, gridSize);
+      canPlacing = canPlacing && p.isInRect(0, 0, gridSize, gridSize);
     });
     return canPlacing;
   }
