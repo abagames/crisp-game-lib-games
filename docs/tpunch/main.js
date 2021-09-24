@@ -137,7 +137,7 @@ function update() {
       return true;
     }
     b.ticks++;
-    return !p.isInRect(-3, -3, 106, 106);
+    return !b.pos.isInRect(-3, -3, 106, 106);
   });
   color("black");
   remove(enemies, (e) => {
