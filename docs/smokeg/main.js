@@ -67,7 +67,7 @@ function update() {
     player = { pos: vec(50, 90), angle: -PI / 2 };
   }
   const scr = sqrt(difficulty) * 0.1;
-  if (input.isJustPressed) {
+  if (input.isJustPressed && smokes.length < 9) {
     play("select");
     grenades.push({
       pos: vec(player.pos),
