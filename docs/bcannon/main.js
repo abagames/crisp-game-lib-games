@@ -2,7 +2,7 @@ title = "B CANNON";
 
 description = `
 [Tap]  Turn
-[Hole] Fire
+[Hold] Fire
 `;
 
 characters = [
@@ -33,7 +33,7 @@ options = {
   theme: "dark",
   isPlayingBgm: true,
   isReplayEnabled: true,
-  seed: 1,
+  seed: 2,
 };
 
 /** @type {{pos: Vector, vel: Vector, radius: number, invincibleTIcks: number}[]} */
