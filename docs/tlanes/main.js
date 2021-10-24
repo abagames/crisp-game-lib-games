@@ -109,9 +109,18 @@ function update() {
     scr = 0;
     scrOfs = 0;
   }
+  let carCount = 0;
+  cars.forEach((c) => {
+    if (c.speed > 0) {
+      carCount++;
+    }
+  });
+  if (carCount === 0) {
+    end();
+  }
   nextCrossDist -= scr;
   if (nextCrossDist < 0) {
-    addScore(cars.length);
+    addScore(carCount);
     crossCount--;
     if (crossCount < 0) {
       nextCrossLanes = times(
@@ -200,15 +209,6 @@ function update() {
     nextCarDist += rnd(40, 60);
   }
   let maxX = 0;
-  let carCount = 0;
-  cars.forEach((c) => {
-    if (c.speed > 0) {
-      carCount++;
-    }
-  });
-  if (carCount === 0) {
-    end();
-  }
   remove(cars, (c) => {
     c.pos.x -= scr;
     if (input.isJustPressed && c.pos.x < 50) {
