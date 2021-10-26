@@ -61,7 +61,7 @@ function update() {
     multiplier = 1;
   }
   if (input.isJustPressed) {
-    play("laser");
+    play("select");
   }
   if (rider.missile == null) {
     rider.vel.x += (input.isPressed ? 0.04 : -0.02) * sqrt(difficulty);
@@ -70,7 +70,7 @@ function update() {
     rider.pos.add(rider.vel);
   } else {
     const m = rider.missile;
-    m.vel.y += (input.isPressed ? -1 : 1) * 0.05 * sqrt(difficulty);
+    m.vel.y += (input.isPressed ? -1 : 1) * 0.05 * difficulty;
     m.vel.y *= 0.99;
     m.vel.x += (sqrt(difficulty) - m.vel.x) * 0.1;
     rider.pos.set(m.pos.x, m.pos.y - 4);
@@ -101,7 +101,7 @@ function update() {
         pos.angleTo(0, rnd(50, 60)) + PI
       ),
     });
-    nextMissileTicks = rnd(100, 120) / sqrt(difficulty);
+    nextMissileTicks = rnd(60, 300) / sqrt(difficulty);
   }
   remove(missiles, (m) => {
     m.pos.add(m.vel);
@@ -115,7 +115,7 @@ function update() {
       multiplier = ceil(multiplier * 0.5);
       rider.missile = m;
     }
-    return !m.pos.isInRect(-9, -3, 220, 116);
+    return !m.pos.isInRect(-9, -3, 230, 116);
   });
   nextPlaneTicks--;
   if (nextPlaneTicks < 0) {
