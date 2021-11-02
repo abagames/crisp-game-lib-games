@@ -18,7 +18,6 @@ options = {
   isPlayingBgm: true,
   isReplayEnabled: true,
   seed: 5,
-  isCapturing: true,
 };
 
 let playerX;
@@ -39,7 +38,7 @@ function update() {
     walls = [];
     nextWallDist = -50;
     caves = times(3, (i) => {
-      return { x: 0, vx: 0, w: i > 0 ? 10 : 15, vw: 0 };
+      return { x: 0, vx: 0, w: i > 0 ? 15 : 20, vw: 0 };
     });
     golds = [];
     nextGoldDist = 5;
@@ -51,8 +50,8 @@ function update() {
     addScore(multiplier);
     const c0 = caves[0];
     caves.forEach((c, i) => {
-      c.vx += rnds((i === 0 ? 1 : 2) * 0.5 * sqrt(difficulty));
-      c.vw += rnds((i === 0 ? 1 : 2) * 0.2 * sqrt(difficulty));
+      c.vx += rnds(2) * sqrt(difficulty);
+      c.vw += rnds(1) * sqrt(difficulty);
       c.x += c.vx;
       c.w += c.vw;
       const minX = i === 0 ? -(17 - 7 / sqrt(difficulty)) : c0.x - c0.w;
@@ -61,8 +60,7 @@ function update() {
         c.vx *= -0.5;
         c.x += c.vx;
       }
-      const minW =
-        i === 0 ? 5 + 5 / sqrt(difficulty) : 7 + 7 / sqrt(difficulty);
+      const minW = i === 0 ? 5 + 5 / sqrt(difficulty) : caves[0].w;
       const maxW =
         i === 0 ? 7 + 7 / sqrt(difficulty) : 9 + 9 / sqrt(difficulty);
       if ((c.w < minW && c.vw < 0) || (c.w > maxW && c.vw > 0)) {
@@ -98,13 +96,20 @@ function update() {
     }
     nextGoldDist--;
     if (nextGoldDist < 0) {
-      const c0 = caves[0];
-      const x = c0.x + rnds(c0.w * 0.7);
       if (rnd() < 0.5) {
-        golds.push({ pos: vec(x + 25, -nextWallDist - wallHeight / 2), vy: 1 });
+        golds.push({
+          pos: vec(
+            caves[1].x + rnds(caves[1].w * 0.8) + 25,
+            -nextWallDist - wallHeight / 2
+          ),
+          vy: 1,
+        });
       } else {
         golds.push({
-          pos: vec(75 - x, 100 + nextWallDist + wallHeight / 2),
+          pos: vec(
+            75 - caves[2].x + rnds(caves[2].w * 0.8),
+            100 + nextWallDist + wallHeight / 2
+          ),
           vy: -1,
         });
       }
@@ -147,13 +152,7 @@ function update() {
       multiplier++;
       return true;
     }
-    if (g.vy > 0 ? g.pos.y > 103 : g.pos.y < -3) {
-      play("hit");
-      if (multiplier > 1) {
-        multiplier--;
-      }
-      return true;
-    }
+    return g.vy > 0 ? g.pos.y > 103 : g.pos.y < -3;
   });
   color("black");
   text(`x${multiplier}`, 3, 9);
