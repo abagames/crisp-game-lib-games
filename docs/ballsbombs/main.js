@@ -148,12 +148,9 @@ function update() {
   }
   nextBallDist -= clamp(scr, sd * 0.2, 99);
   if (nextBallDist < 0) {
-    //const pos = vec(rnd() < 0.1 ? rnd(-20, -3) : rnd(153, 170), rnd(10, 40));
-    //const pos = vec(rnd() < 0.1 ? rnd(-20, -3) : rnd(153, 220), rnd(10, 50));
     const pos = vec(rnd() < 0.1 ? rnd(-20, -3) : rnd(153, 200), rnd(10, 40));
     const vel = vec((pos.x < 0 ? 2 : -1) * rnd(0.3, 0.7), 0);
     balls.push({ pos, vel });
-    //nextBallDist += rnd(15, 24);
     nextBallDist += rnd(24, 32) / sd;
   }
   remove(balls, (b) => {
