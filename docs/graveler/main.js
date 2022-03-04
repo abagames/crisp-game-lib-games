@@ -17,7 +17,6 @@ ll  ll
 options = {
   theme: "crt",
   isPlayingBgm: true,
-  isSpeedingUpSound: true,
   isReplayEnabled: true,
   seed: 29,
 };
@@ -62,6 +61,11 @@ function update() {
     nextObjDist = 10;
     coinCount = 0;
     multiplier = 1;
+  }
+  if (!isReplaying && ticks % 600 === 0) {
+    sss.stopBgm();
+    sss.setTempo(clamp(120 + (ticks / 600) * 10, 240));
+    sss.playBgm();
   }
   const scr = difficulty * 0.5;
   walls.forEach((w) => {
