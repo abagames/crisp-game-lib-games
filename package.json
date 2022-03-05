@@ -8,6 +8,6 @@
   "author": "abagames",
   "license": "MIT",
   "devDependencies": {
-    "light-server": "^2.7.0"
+    "light-server": "^2.9.1"
   }
 }
