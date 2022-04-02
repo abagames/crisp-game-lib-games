@@ -23,7 +23,6 @@ let targetTime;
 let ansTicks;
 let ansIndex;
 let multiplier;
-let isFirstReleased;
 
 function update() {
   const sd = sqrt(difficulty);
@@ -36,7 +35,6 @@ function update() {
     ansTicks = 0;
     ansIndex = 0;
     multiplier = 1;
-    isFirstReleased = true;
     sss.setTempo(90);
     sss.playMml(bgmMml);
   }
@@ -54,19 +52,9 @@ function update() {
       nextQuestion();
     }
   } else {
-    leftTime -= sd * 0.01;
-    if (leftTime < 0) {
-      leftTime = 0;
-      text(`${ans}`, 50 - (ans > 9 ? 6 : 0), 55);
-      sss.stopMml();
-      play("random");
-      end();
-    }
     ansIndex = floor(input.pos.x / 20);
-    if (input.isJustReleased) {
-      if (isFirstReleased) {
-        isFirstReleased = false;
-      } else if (ansIndex >= 0 && ansIndex < 5) {
+    if (input.isJustPressed) {
+      if (ansIndex >= 0 && ansIndex < 5) {
         ansTicks = 30 / sd;
         addScore(ceil(leftTime * 9 * multiplier));
         const tt = leftTime + (PI / 2) * (anss[ansIndex] === ans ? 2 : -1);
@@ -86,6 +74,14 @@ function update() {
         targetTime = clamp(tt, 0, PI * 2);
       }
     }
+  }
+  leftTime -= sd * 0.01;
+  if (leftTime < 0) {
+    leftTime = 0;
+    text(`${ans}`, 50 - (ans > 9 ? 6 : 0), 55);
+    sss.stopMml();
+    play("explosion");
+    end();
   }
   arc(45, 45, 33, 3, PI / 2 + leftTime, PI / 2);
   anss.forEach((a, i) => {
@@ -137,7 +133,7 @@ function update() {
       for (let j = 0; j < 9; j++) {
         let a = ans + rnds(5);
         if (rnd() < 0.3) {
-          a += a * rnds(1.1, 1.2);
+          a += a * rnds(0.1, 0.2);
         }
         a = clamp(round(a), 1, 99);
         anss[i] = a;
