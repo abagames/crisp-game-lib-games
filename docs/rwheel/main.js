@@ -129,6 +129,7 @@ function update() {
       color("yellow");
     }
     box(b.pos, b.width, 3);
+    return b.pos.y > 103;
   });
   angleOfs += va;
   color("black");
