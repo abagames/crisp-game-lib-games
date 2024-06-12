@@ -1,5 +1,5 @@
 # crisp-game-lib-games
 
-Games made with [crisp-game-lib](https://github.com/abagames/crisp-game-lib).
+Games made with [crisp-game-lib](https://github.com/abagames/crisp-game-lib) (ver. 1.0).
 
-A list of the games can be found on [my web page](http://www.asahi-net.or.jp/~cs8k-cyu/browser.html).
+The source code for each game is `main.js` in each directory in the [docs directory](./docs/).
